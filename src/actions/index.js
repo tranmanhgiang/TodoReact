@@ -6,9 +6,9 @@ export const listAll = () => {
     }
 }
 
-export const addTask = (task) => {
+export const saveTask = (task) => {
     return {
-        type : types.ADD_TASK,
+        type : types.SAVE_TASK,
         task
     }
 }
@@ -22,5 +22,47 @@ export const openForm = () => {
 export const closeForm = () => {
     return {
         type : types.CLOSE_FORM,
+    }
+}
+
+export const onUpdateStatus = (id) => {
+    return {
+        type : types.UPDATE_STATUS_TASK,
+        id 
+    }
+}
+
+export const onDelete = (id) => {
+    return {
+        type : types.DELETE_TASKS,
+        id 
+    }
+}
+
+export const editTask = (task) => {
+    return {
+        type : types.EDIT_TASK,
+        task 
+    }
+}
+
+export const filterTask = (filter) => {
+    return {
+        type : types.FILTER_TABLE,
+        filter 
+    }
+}
+
+export const searchTask = (keyword) => {
+    return {
+        type : types.SEARCH,
+        keyword 
+    }
+}
+
+export const sortTask = (sort) => {
+    return {
+        type : types.SORT,
+        sort 
     }
 }

@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as actions from './../actions/index';
 
 class TaskItem extends React.Component {
 
@@ -10,12 +12,13 @@ class TaskItem extends React.Component {
         this.props.onDelete(this.props.task.id);
     }
     
-    onUpdate = () => {
-        this.props.onUpdate(this.props.task.id);
+    onEditTask = () => {
+        this.props.onOpenForm();
+        this.props.onEditTask(this.props.task);
     }
 
     render() {
-        var {task,index} = this.props;
+        var { task,index } = this.props;
         return (
             <tr>
                 <td>{index + 1}</td>
@@ -31,7 +34,7 @@ class TaskItem extends React.Component {
                 <button 
                     type="button" 
                     className="btn btn-warning"
-                    onClick={this.onUpdate}>
+                    onClick={this.onEditTask}>
                         <span className="fa fa-pencil mr-5" />
                         Sửa
                 </button>
@@ -49,4 +52,27 @@ class TaskItem extends React.Component {
     }
 }
 
-export default TaskItem;
+const mapStateToProps = (state) => {
+    return {
+        tasks : state.tasks
+    }
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        onUpdateStatus : (id) => {
+            dispatch(actions.onUpdateStatus(id));
+        },
+        onDelete : (id) => {
+            dispatch(actions.onDelete(id));
+        },
+        onOpenForm : () => {
+            dispatch(actions.openForm());
+        },
+        onEditTask : (task) => {
+            dispatch(actions.editTask(task));
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskItem);

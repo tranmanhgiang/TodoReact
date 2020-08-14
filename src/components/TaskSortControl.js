@@ -1,4 +1,6 @@
 import React from 'react';
+import * as actions from './../actions/index';
+import { connect } from 'react-redux';
 
 class TaskSortControl extends React.Component {
 
@@ -20,10 +22,11 @@ class TaskSortControl extends React.Component {
             }
         });
         this.props.onSort(this.state.sort);
+        
     }
 
     render() {
-        var { sort } = this.state;
+        var { sort } = this.props;
         return (
             <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 <div className="dropdown">
@@ -67,4 +70,18 @@ class TaskSortControl extends React.Component {
     }
 }
 
-export default TaskSortControl;
+const mapStateToProps = state => {
+    return {
+        sort : state.sort
+    };
+}
+
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        onSort : (sort) => {
+            dispatch(actions.sortTask(sort));
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskSortControl);
